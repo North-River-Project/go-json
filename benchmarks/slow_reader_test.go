@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"testing"
 
-	gojson "github.com/goccy/go-json"
+	gojson "github.com/north-river-project/go-json"
 )
 
 // Benchmark decoding from a slow io.Reader that never fills the buffer completely

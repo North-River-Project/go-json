@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/goccy/go-json"
+	"github.com/north-river-project/go-json"
 )
 
 type User struct {
