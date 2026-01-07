@@ -4058,7 +4058,7 @@ func TestIssue429(t *testing.T) {
 	}
 }
 
-func TestMismatchedCase1OnStructWithMoreThanSixteenProperties(t *testing.T) {
+func TestUnmarshalMismatchedCase1OnStructWithMoreThanSixteenProperties(t *testing.T) {
 	input := []byte(`{"P17": {"key": "value"}}`)
 
 	var target struct {
@@ -4090,7 +4090,7 @@ func TestMismatchedCase1OnStructWithMoreThanSixteenProperties(t *testing.T) {
 	}
 }
 
-func TestMismatchedCase2OnStructWithMoreThanSixteenProperties(t *testing.T) {
+func TestUnmarshalMismatchedCase2OnStructWithMoreThanSixteenProperties(t *testing.T) {
 	input := []byte(`{"p17": {"key": "value"}}`)
 
 	var target struct {
@@ -4114,6 +4114,76 @@ func TestMismatchedCase2OnStructWithMoreThanSixteenProperties(t *testing.T) {
 	}
 
 	if err := json.Unmarshal(input, &target); err != nil {
+		t.Fatal(err)
+	}
+
+	if target.P17 == nil {
+		t.Fatal("should not be nil")
+	}
+}
+
+func TestDecodeMismatchedCase1OnStructWithMoreThanSixteenProperties(t *testing.T) {
+	input := []byte(`{"P17": {"key": "value"}}`)
+
+	var target struct {
+		P1  string          `json:"p1,omitempty"`
+		P2  string          `json:"p2,omitempty"`
+		P3  string          `json:"p3,omitempty"`
+		P4  string          `json:"p4,omitempty"`
+		P5  string          `json:"p5,omitempty"`
+		P6  string          `json:"p6,omitempty"`
+		P7  string          `json:"p7,omitempty"`
+		P8  string          `json:"p8,omitempty"`
+		P9  string          `json:"p9,omitempty"`
+		P10 string          `json:"p10,omitempty"`
+		P11 string          `json:"p11,omitempty"`
+		P12 string          `json:"p12,omitempty"`
+		P13 string          `json:"p13,omitempty"`
+		P14 string          `json:"p14,omitempty"`
+		P15 string          `json:"p15,omitempty"`
+		P16 string          `json:"p16,omitempty"`
+		P17 json.RawMessage `json:"p17,omitempty"`
+	}
+
+	r := bytes.NewReader(input)
+
+	dec := json.NewDecoder(r)
+	if err := dec.Decode(&target); err != nil {
+		t.Fatal(err)
+	}
+
+	if target.P17 == nil {
+		t.Fatal("should not be nil")
+	}
+}
+
+func TestDecodeMismatchedCase2OnStructWithMoreThanSixteenProperties(t *testing.T) {
+	input := []byte(`{"p17": {"key": "value"}}`)
+
+	var target struct {
+		P1  string          `json:",omitempty"`
+		P2  string          `json:",omitempty"`
+		P3  string          `json:",omitempty"`
+		P4  string          `json:",omitempty"`
+		P5  string          `json:",omitempty"`
+		P6  string          `json:",omitempty"`
+		P7  string          `json:",omitempty"`
+		P8  string          `json:",omitempty"`
+		P9  string          `json:",omitempty"`
+		P10 string          `json:",omitempty"`
+		P11 string          `json:",omitempty"`
+		P12 string          `json:",omitempty"`
+		P13 string          `json:",omitempty"`
+		P14 string          `json:",omitempty"`
+		P15 string          `json:",omitempty"`
+		P16 string          `json:",omitempty"`
+		P17 json.RawMessage `json:",omitempty"`
+	}
+
+	r := bytes.NewReader(input)
+
+	dec := json.NewDecoder(r)
+	if err := dec.Decode(&target); err != nil {
 		t.Fatal(err)
 	}
 

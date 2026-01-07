@@ -390,7 +390,6 @@ func decodeKey(d *structDecoder, buf []byte, cursor int64) (int64, *structFieldS
 	}
 
 	return cursor, nil, nil
-
 }
 
 func decodeKeyByBitmapUint8Stream(d *structDecoder, s *Stream) (*structFieldSet, string, error) {
@@ -667,7 +666,22 @@ func decodeKeyStream(d *structDecoder, s *Stream) (*structFieldSet, string, erro
 		return nil, "", err
 	}
 	k := *(*string)(unsafe.Pointer(&key))
-	return d.fieldMap[k], k, nil
+	//return d.fieldMap[k], k, nil
+
+	// try key as-is
+	_, exists := d.fieldMap[k]
+	if exists {
+		return d.fieldMap[k], k, nil
+	}
+
+	// try lower-case key
+	lk := strings.ToLower(k)
+	_, exists = d.fieldMap[lk]
+	if exists {
+		return d.fieldMap[lk], lk, nil
+	}
+
+	return nil, k, nil
 }
 
 func (d *structDecoder) DecodeStream(s *Stream, depth int64, p unsafe.Pointer) error {
