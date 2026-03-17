@@ -1,7 +1,7 @@
 package json
 
 import (
-	"github.com/north-river-project/go-json/internal/errors"
+	"github.com/goccy/go-json/internal/errors"
 )
 
 var (

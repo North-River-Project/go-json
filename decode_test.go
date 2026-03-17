@@ -18,7 +18,7 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/north-river-project/go-json"
+	"github.com/goccy/go-json"
 )
 
 func Test_Decoder(t *testing.T) {

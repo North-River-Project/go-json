@@ -18,7 +18,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/north-river-project/go-json"
+	"github.com/goccy/go-json"
 )
 
 // Test values for the stream test.

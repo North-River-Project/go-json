@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/north-river-project/go-json"
+	"github.com/goccy/go-json"
 )
 
 func TestCoverUint16(t *testing.T) {

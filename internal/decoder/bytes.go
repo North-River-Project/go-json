@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"unsafe"
 
-	"github.com/north-river-project/go-json/internal/errors"
-	"github.com/north-river-project/go-json/internal/runtime"
+	"github.com/goccy/go-json/internal/errors"
+	"github.com/goccy/go-json/internal/runtime"
 )
 
 type bytesDecoder struct {
